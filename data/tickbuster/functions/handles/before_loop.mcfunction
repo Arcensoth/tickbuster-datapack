@@ -1,5 +1,7 @@
 # tickbuster:handles/before_loop
 
-tellraw @a[tag=tickbuster.debug] [{"text": "[tickbuster:handles/before_loop] Worldborder before game simulation: ", "color": "gray"}, {"score": {"objective": "tkb.math", "name": "$worldborder"}}]
+execute store result score $worldborder temp run worldborder get
 
-scoreboard players set $counter tkb.math 0
+tellraw @a[tag=tickbuster.debug] [{"text": "[tickbuster:handles/before_loop] Worldborder before game simulation: ", "color": "gray"}, {"score": {"objective": "temp", "name": "$worldborder"}}]
+
+scoreboard players set $wbcounter temp 0
