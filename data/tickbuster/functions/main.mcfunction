@@ -7,7 +7,7 @@ execute store result score $worldborder tkb.math run worldborder get
 function #tickbuster:hooks/before_loop
 
 # Start the subtick loop... if we have any time to begin with.
-execute if score $worldborder tkb.math matches ..1049 run function tickbuster:loop
+execute if score $worldborder tkb.math matches ..59999049 run function tickbuster:loop
 
 # Run after-loop handles.
 function #tickbuster:hooks/after_loop

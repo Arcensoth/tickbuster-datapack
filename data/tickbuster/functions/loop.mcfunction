@@ -7,6 +7,6 @@ execute store result score $worldborder tkb.math run worldborder get
 function #tickbuster:hooks/loop
 
 # If we've still got time, keep looping.
-execute if score $worldborder tkb.math matches ..1049 run function tickbuster:loop
+execute if score $worldborder tkb.math matches ..59999049 run function tickbuster:loop
 
 # Otherwise, break out and let the tick run off.
