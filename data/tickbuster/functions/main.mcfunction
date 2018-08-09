@@ -1,8 +1,5 @@
 # tickbuster:main
 
-# Revoke the entire host advancement from all players, wiping all criteria.
-advancement revoke @a only tickbuster:internal/host
-
 # Get an initial measurement.
 execute store result score $worldborder tkb.math run worldborder get
 scoreboard players operation $blocks tkb.math = $worldborder tkb.math
