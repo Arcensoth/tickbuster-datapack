@@ -16,6 +16,10 @@ Scorespace  | `tkb`
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
+## Usage
+- **Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.** The goal is for all background functions to run as many times per tick as possible, via round-robin, without causing lag.
+- It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration. Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
+
 ## Notes
 - **Important!** This module requires exclusive control of the worldborder. If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
   - This module is made possible by the fact that the worldborder works off system time and updates asynchronous to the main gameloop. Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing). This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
