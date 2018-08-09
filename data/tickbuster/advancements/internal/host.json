@@ -1,0 +1,14 @@
+{
+    "parent": "tickbuster:internal",
+    "rewards": {
+        "function": "tickbuster:main"
+    },
+    "criteria": {
+        "host": {
+            "trigger": "minecraft:impossible"
+        },
+        "enter_block": {
+            "trigger": "minecraft:enter_block"
+        }
+    }
+}
