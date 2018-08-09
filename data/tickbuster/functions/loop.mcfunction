@@ -1,6 +1,7 @@
 # tickbuster:loop
 
 # Calculate how many milliseconds have passed in the current tick, by counting the number of blocks the worldborder has moved.
+# TODO we can optimize this (reduce the number of operations, use delta, etc)
 execute store result score $worldborder tkb.math run worldborder get
 scoreboard players operation $blocks tkb.math = $worldborder tkb.math
 scoreboard players remove $blocks tkb.math 1000
