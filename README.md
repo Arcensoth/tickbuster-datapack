@@ -19,6 +19,7 @@ Scorespace  | `tkb`
 ## Notes
 - **Important!** This module requires exclusive control of the worldborder. If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
   - This module is made possible by the fact that the worldborder works off system time and updates asynchronous to the main gameloop. Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing). This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
+- Depending on how expensive your background computation is, you may need to increase the `maxCommandChainLength` gamerule to prevent the subtick loop from hitting cap. This usually won't happen with the default value unless you're running many small operations per iteration.
 
 ## Configuration
 The objective `tkb.config` is used to hold configuration values via fakeplayers. There are also various entity tags available that will change behaviour. Operators may change scoreboard values and assign tags to players directly.
