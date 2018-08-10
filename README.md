@@ -7,6 +7,14 @@ Category    | Utility
 Namespace   | `tickbuster`
 Scorespace  | `tkb`
 
+- [Q&A](#q-a)
+  - [What does it do?](#what-does-it-do)
+  - [How do I use it?](#how-do-i-use-it)
+  - [How does it work?](#how-does-it-work)
+  - [Can I use the worldborder for anything else?](#can-i-use-the-worldborder-for-anything-else)
+  - [Why are some of my computations being cut-off?](#why-are-some-of-my-computations-being-cut-off)
+  - [Why is the after-loop hook not running?](#why-is-the-after-loop-hook-not-running)
+  - [Where did the idea come from?](#where-did-the-idea-come-from)
 - [Configuration](#configuration)
   - [Target tick time](#target-tick-time)
   - [Debug mode](#debug-mode)
@@ -16,21 +24,41 @@ Scorespace  | `tkb`
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
-## Notes
-- **Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.**
-  - The goal is for all background functions to run as many times per tick as possible, via round-robin, without causing lag.
-  - It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration.
-  - Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
-- **This module requires exclusive control of the worldborder.**
-  - If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
-  - It's entirely safe for other commands to query the worldborder; the danger is in setting the worldborder such as with `worldborder add` and `worldbnorder set`.
-- This module is made possible by the fact that the worldborder works off system time and updates asynchronous to the main gameloop.
-  - Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing).
-  - This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
-- Depending on how expensive your background computation is, you may need to increase the `maxCommandChainLength`.
-  - If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` and being cut-off before actually reaching the target tick time.
-  - This usually won't happen with the default value unless you're running many small operations per iteration.
-- Based on Dr. Brian Lorgon111's [lagless prioritized command scheduler concept](https://www.youtube.com/watch?v=lhJM9LmD2Gg) to "maximize command programming CPU utilization without introducing game lag."
+## Q&A
+### What does it do?
+It lets you run tagged functions as many times per tick as possible without causing lag.
+
+The idea is that all tagged functions will run as many times per tick as possible, via round-robin, without causing lag.
+
+### How do I use it?
+Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.
+
+It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration. Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
+
+### How does it work?
+It works thanks to the fact that the worldborder runs on system time and updates asynchronous to the main gameloop.
+
+Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing). This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
+
+### Can I use the worldborder for anything else?
+No, this module **requires exclusive control of the worldborder**.
+
+Unfortunately the worldborder is our only viable means of measuring real-time passage with commands. If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
+
+Note that other commands may safely continue to query the worldborder via `worldborder get`; the danger is in setting the worldborder such as with `worldborder add` and `worldbnorder set`.
+
+### Why are some of my computations being cut-off?
+Most likely because `maxCommandChainLength` is being hit during the subtick loop.
+
+Depending on how inexpensive your background computation is, you may need to increase the `maxCommandChainLength` to prevent the subtick loop from hitting the command cap before the target tick time. This usually won't happen with the default value unless you're running many small operations per iteration.
+
+### Why is the after-loop hook not running?
+See: [Why are some of computations being cut-off?](#why-are-some-of-my-computations-being-cut-off)
+
+If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` during the subtick loop and being cut-off before actually reaching the target tick time. In this case, the after-loop hook will never even get a chance to run.
+
+### Where did the idea come from?
+Based on Dr. Brian Lorgon111's [lagless prioritized command scheduler concept](https://www.youtube.com/watch?v=lhJM9LmD2Gg) to "maximize command programming CPU utilization without introducing game lag." The concept has been simplified and adapted for Minecraft 1.13 in the form of a datapack.
 
 ## Configuration
 The objective `tkb.config` is used to hold configuration values via fakeplayers. There are also various entity tags available that will change behaviour. Operators may change scoreboard values and assign tags to players directly.
