@@ -16,14 +16,20 @@ Scorespace  | `tkb`
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
-## Usage
-- **Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.** The goal is for all background functions to run as many times per tick as possible, via round-robin, without causing lag.
-- It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration. Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
-
 ## Notes
-- **Important!** This module requires exclusive control of the worldborder. If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
-  - This module is made possible by the fact that the worldborder works off system time and updates asynchronous to the main gameloop. Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing). This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
-- Depending on how expensive your background computation is, you may need to increase the `maxCommandChainLength` gamerule to prevent the subtick loop from hitting cap. This usually won't happen with the default value unless you're running many small operations per iteration.
+- **Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.**
+  - The goal is for all background functions to run as many times per tick as possible, via round-robin, without causing lag.
+  - It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration.
+  - Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
+- **This module requires exclusive control of the worldborder.**
+  - If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
+  - It's entirely safe for other commands to query the worldborder; the danger is in setting the worldborder such as with `worldborder add` and `worldbnorder set`.
+- This module is made possible by the fact that the worldborder works off system time and updates asynchronous to the main gameloop.
+  - Unlike anything else in commands, this allows us to determine the amount of time that passes between commands in the same tick (subtick timing).
+  - This comes at the cost of using the worldborder for its intended purpose, hence the requirement for exclusive worldborder control.
+- Depending on how expensive your background computation is, you may need to increase the `maxCommandChainLength`.
+  - If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` and being cut-off before actually reaching the target tick time.
+  - This usually won't happen with the default value unless you're running many small operations per iteration.
 
 ## Configuration
 The objective `tkb.config` is used to hold configuration values via fakeplayers. There are also various entity tags available that will change behaviour. Operators may change scoreboard values and assign tags to players directly.
