@@ -53,7 +53,7 @@ Most likely because `maxCommandChainLength` is being hit during the subtick loop
 Depending on how inexpensive your background computation is, you may need to increase the `maxCommandChainLength` to prevent the subtick loop from hitting the command cap before the target tick time. This usually won't happen with the default value unless you're running many small operations per iteration.
 
 ### Why is the after-loop hook not running?
-See: [Why are some of computations being cut-off?](#why-are-some-of-my-computations-being-cut-off)
+See: [Why are some of my computations being cut-off?](#why-are-some-of-my-computations-being-cut-off)
 
 If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` during the subtick loop and being cut-off before actually reaching the target tick time. In this case, the after-loop hook will never even get a chance to run.
 
