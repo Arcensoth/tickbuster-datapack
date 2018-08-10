@@ -30,6 +30,7 @@ Scorespace  | `tkb`
 - Depending on how expensive your background computation is, you may need to increase the `maxCommandChainLength`.
   - If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` and being cut-off before actually reaching the target tick time.
   - This usually won't happen with the default value unless you're running many small operations per iteration.
+- Based on Dr. Brian Lorgon111's [lagless prioritized command scheduler concept](https://www.youtube.com/watch?v=lhJM9LmD2Gg) to "maximize command programming CPU utilization without introducing game lag."
 
 ## Configuration
 The objective `tkb.config` is used to hold configuration values via fakeplayers. There are also various entity tags available that will change behaviour. Operators may change scoreboard values and assign tags to players directly.
