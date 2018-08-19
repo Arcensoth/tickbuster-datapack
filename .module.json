@@ -1,0 +1,11 @@
+{
+  "title": "Tickbuster",
+  "description": "Lag-free background computation with subtick timing.",
+  "version": "0.0.2-dev",
+  "namespace": "tickbuster",
+  "scorespace": "tkb",
+  "authors": {
+    "Arcensoth": "https://github.com/Arcensoth"
+  },
+  "smf_version": "0.10.0"
+}
