@@ -1,4 +1,4 @@
-# v0.0.2-dev
+# v0.0.2
 - Update to SMF v0.10.0
 - Overhaul readme
 
