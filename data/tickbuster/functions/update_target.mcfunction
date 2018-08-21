@@ -2,9 +2,9 @@
 
 tellraw @a[tag=tickbuster.debug] [{"text": "[tickbuster:update_target] Updating target configuration from ", "color": "gray"}, {"score": {"objective": "tkb.math", "name": "$targetms"}}, {"text": " to "}, {"score": {"objective": "tkb.config", "name": "$target"}}]
 
-# cap values
+# cap values, unless overclocking is enabled
 execute if score $target tkb.config matches ..-1 run scoreboard players set $target tkb.config 0
-execute if score $target tkb.config matches 51.. run scoreboard players set $target tkb.config 50
+execute if score $target tkb.config matches 51.. unless score $overclock tkb.config matches 1.. run scoreboard players set $target tkb.config 50
 
 # synchronize
 scoreboard players operation $targetms tkb.math = $target tkb.config
