@@ -17,6 +17,7 @@ Scorespace  | `tkb`
   - [Where did the idea come from?](#where-did-the-idea-come-from)
 - [Configuration](#configuration)
   - [Target tick time](#target-tick-time)
+  - [Overclocking](#overclocking)
   - [Debug mode](#debug-mode)
 - [Scoreboard](#scoreboard)
   - [`tkb.config` objective](#tkbconfig-objective)
@@ -88,6 +89,19 @@ scoreboard players set $target tkb.config 0
 
 Allowed values are `0..50` and anything outside this range will wrap accordingly.
 
+### Overclocking
+Normally the target tick time is capped at `50` but there is a toggle that will allow you to go beyond. Generally this is not recommended because it will directly result in lag and high CPU usage. **Use at your own risk.**
+
+Enable overclocking:
+```
+scoreboard players set $overclock tkb.config 1
+```
+
+Disable overclocking:
+```
+scoreboard players set $overclock tkb.config 0
+```
+
 ### Debug mode
 Expose players to debugging mechanisms:
 ```
@@ -102,9 +116,10 @@ Objective     | Criteria  | Usage     | Description
 `tkb.module`  | `dummy`   | Read-only | Reserved for SMF.
 
 ### `tkb.config` objective
-Fakeplayer  | Default | Description
------------ | ------- | -----------
-`$target`   | `40`    | The [target tick time](#target-tick-time), in milliseconds.
+Fakeplayer    | Default | Description
+------------- | ------- | -----------
+`$target`     | `40`    | The [target tick time](#target-tick-time), in milliseconds.
+`$overclock`  | `0`     | Whether to allow [overclocking](#overclocking) the target tick time.
 
 ### `tkb.math` objective
 **These values are read-only and should not be altered.**
