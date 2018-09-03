@@ -1,3 +1,6 @@
+# v0.0.5-dev
+- Define missing hooks
+
 # v0.0.4
 - Export benchmarking utilities to a separate pack
 - Reduce default target tick time from 40 down to 20
