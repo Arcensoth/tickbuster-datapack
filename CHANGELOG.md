@@ -1,5 +1,7 @@
 # v0.0.4-dev
 - Export benchmarking utilities to a separate pack
+- Reduce default target tick time from 40 down to 20
+- Optimize host-selection by choosing an arbitrary player
 
 # v0.0.3
 - Implement benchmarking utilities
