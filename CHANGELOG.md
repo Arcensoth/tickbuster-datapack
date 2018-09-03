@@ -1,4 +1,4 @@
-# v0.0.5-dev
+# v0.0.5
 - Define missing hooks
 
 # v0.0.4
