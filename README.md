@@ -69,14 +69,14 @@ The objective `tkb.config` is used to hold configuration values via fakeplayers.
 ### Target tick time
 The target tick time is a threshold, in milliseconds, that tells the system when to break from the subtick loop. As soon as a tick lasts up to this threshold, the system will yield control back to the game.
 
-The default target tick time is set safely below the game's built-in 50ms target:
+The default target tick time is set well below the game's built-in 50ms target:
 ```
-scoreboard players set $target tkb.config 40
+scoreboard players set $target tkb.config 20
 ```
 
-Something a little more conservative:
+Something a bit less conservative:
 ```
-scoreboard players set $target tkb.config 30
+scoreboard players set $target tkb.config 40
 ```
 
 Pushing the game to its limit:
@@ -126,7 +126,7 @@ Fakeplayer    | Default | Description
 ------------- | ------- | -----------
 `$autobench`  | `0`     | The number of ticks to automatically benchmark at. Set to `0` to disable.
 `$overclock`  | `0`     | Whether to allow [overclocking](#overclocking) the target tick time.
-`$target`     | `40`    | The [target tick time](#target-tick-time), in milliseconds.
+`$target`     | `20`    | The [target tick time](#target-tick-time), in milliseconds.
 
 ### `tkb.bench` objective
 **These values are read-only and should not be altered.**
