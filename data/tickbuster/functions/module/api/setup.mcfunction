@@ -2,6 +2,7 @@
 
 scoreboard objectives add tkb.config dummy
 scoreboard objectives add tkb.math dummy
+scoreboard objectives add tkb.bench dummy
 
 # defaults
 scoreboard players set $overclock tkb.config 0

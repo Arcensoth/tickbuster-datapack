@@ -1,4 +1,5 @@
 # v0.0.3-dev
+- Implement benchmarking utilities
 - Allow overclocking target tick time
 
 # v0.0.2
