@@ -1,5 +1,5 @@
 # v0.0.4-dev
-- Implement automatic benchmarking
+- Export benchmarking utilities to a separate pack
 
 # v0.0.3
 - Implement benchmarking utilities
