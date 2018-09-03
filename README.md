@@ -17,10 +17,12 @@ Scorespace  | `tkb`
   - [Where did the idea come from?](#where-did-the-idea-come-from)
 - [Configuration](#configuration)
   - [Target tick time](#target-tick-time)
+  - [Benchmarking](#benchmarking)
   - [Overclocking](#overclocking)
   - [Debug mode](#debug-mode)
 - [Scoreboard](#scoreboard)
   - [`tkb.config` objective](#tkbconfig-objective)
+  - [`tkb.bench` objective](#tkbbench-objective)
   - [`tkb.math` objective](#tkbmath-objective)
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
@@ -89,6 +91,9 @@ scoreboard players set $target tkb.config 0
 
 Allowed values are `0..50` and anything outside this range will wrap accordingly.
 
+### Benchmarking
+TODO
+
 ### Overclocking
 Normally the target tick time is capped at `50` but there is a toggle that will allow you to go beyond. Generally this is not recommended because it will directly result in lag and high CPU usage. **Use at your own risk.**
 
@@ -112,14 +117,26 @@ tag <targets> add tickbuster.debug
 Objective     | Criteria  | Usage     | Description
 ------------- | --------- | --------- | -----------
 `tkb.config`  | `dummy`   | Input     | Reserved for configuration options.
+`tkb.bench`   | `dummy`   | Read-only | Reserved for benchmark calculations.
 `tkb.math`    | `dummy`   | Read-only | Reserved for sensitive operations.
 `tkb.module`  | `dummy`   | Read-only | Reserved for SMF.
 
 ### `tkb.config` objective
 Fakeplayer    | Default | Description
 ------------- | ------- | -----------
-`$target`     | `40`    | The [target tick time](#target-tick-time), in milliseconds.
+`$autobench`  | `0`     | The number of ticks to automatically benchmark at. Set to `0` to disable.
 `$overclock`  | `0`     | Whether to allow [overclocking](#overclocking) the target tick time.
+`$target`     | `40`    | The [target tick time](#target-tick-time), in milliseconds.
+
+### `tkb.bench` objective
+**These values are read-only and should not be altered.**
+
+Fakeplayer        | Description
+----------------- | -----------
+`$current_iters`  | The number of iterations, over the course of the current tick.
+`$iters_per_tick` | The average number of iterations per tick, over the course of the benchmark.
+`$total_iters`    | The total number of iterations, over the course of the benchmark.
+`$total_ticks`    | The totla number of ticks, over the course of the benchmark.
 
 ### `tkb.math` objective
 **These values are read-only and should not be altered.**
