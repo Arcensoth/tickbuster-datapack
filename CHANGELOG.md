@@ -1,3 +1,6 @@
+# v0.0.6-dev
+- Implement function to stop the sub-tick loop early
+
 # v0.0.5
 - Define missing hooks
 

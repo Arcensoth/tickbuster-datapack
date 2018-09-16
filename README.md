@@ -17,6 +17,7 @@ Scorespace  | `tkb`
   - [Where did the idea come from?](#where-did-the-idea-come-from)
 - [Configuration](#configuration)
   - [Target tick time](#target-tick-time)
+  - [Stopping early](#stopping-early)
   - [Overclocking](#overclocking)
   - [Debug mode](#debug-mode)
 - [Scoreboard](#scoreboard)
@@ -87,7 +88,7 @@ Setting the target `0` will effectively disable any background computation:
 scoreboard players set $target tkb.config 0
 ```
 
-Allowed values are `0..50` and anything outside this range will wrap accordingly.
+Allowed values are `0..50` and anything outside this range will wrap accordingly - unless [overclocking] is enabled, in which case `0..1000` is permitted.
 
 ### Overclocking
 Normally the target tick time is capped at `50` but there is a toggle that will allow you to go beyond. Generally this is not recommended because it will directly result in lag and high CPU usage. **Use at your own risk.**
@@ -101,6 +102,9 @@ Disable overclocking:
 ```
 scoreboard players set $overclock tkb.config 0
 ```
+
+### Stopping early
+You can force the sub-tick loop to stop early by calling the `tickbuster:stop` function. Useful if there is no computation to be processed in the current tick, as to not waste CPU cycles.
 
 ### Debug mode
 Expose players to debugging mechanisms:
