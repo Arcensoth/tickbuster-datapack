@@ -1,5 +1,6 @@
 # v0.0.6-dev
 - Implement function to stop the sub-tick loop early
+- Add config triggers and revise sync mechanism
 
 # v0.0.5
 - Define missing hooks

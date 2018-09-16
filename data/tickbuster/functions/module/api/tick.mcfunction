@@ -4,9 +4,6 @@
 worldborder set 59999000
 worldborder add 1000 1
 
-# Check for configuration updates.
-execute unless score $target tkb.config = $targetms tkb.math run function tickbuster:update_target
-
 # Make sure that `minecraft:enter_block` is the last criteria to be fulfilled, later in the tick.
 advancement revoke @a only tickbuster:internal/host
 

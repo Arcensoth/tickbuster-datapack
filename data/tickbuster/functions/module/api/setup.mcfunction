@@ -3,10 +3,13 @@
 scoreboard objectives add tkb.config dummy
 scoreboard objectives add tkb.math dummy
 
+# triggers
+scoreboard objectives add tkb.target trigger
+scoreboard objectives add tkb.overclock trigger
+
 # defaults
 scoreboard players set $overclock tkb.config 0
 scoreboard players set $target tkb.config 20
 
-# trigger target update
-scoreboard players set $targetms tkb.math 0
-scoreboard players set $targetwb tkb.math 59999000
+# sync config
+function tickbuster:sync

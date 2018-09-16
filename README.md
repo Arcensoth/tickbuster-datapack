@@ -19,10 +19,13 @@ Scorespace  | `tkb`
   - [Target tick time](#target-tick-time)
   - [Stopping early](#stopping-early)
   - [Overclocking](#overclocking)
-  - [Debug mode](#debug-mode)
+  - [Administration](#administration)
+  - [Debugging](#debugging)
 - [Scoreboard](#scoreboard)
   - [`tkb.config` objective](#tkbconfig-objective)
   - [`tkb.math` objective](#tkbmath-objective)
+- [Triggers](#triggers)
+  - [Configuration triggers](#configuration-triggers)
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
@@ -70,22 +73,22 @@ The target tick time is a threshold, in milliseconds, that tells the system when
 
 The default target tick time is set well below the game's built-in 50ms target:
 ```
-scoreboard players set $target tkb.config 20
+trigger tkb.target set 20
 ```
 
 Something a bit less conservative:
 ```
-scoreboard players set $target tkb.config 40
+trigger tkb.target set 40
 ```
 
 Pushing the game to its limit:
 ```
-scoreboard players set $target tkb.config 50
+trigger tkb.target set 50
 ```
 
 Setting the target `0` will effectively disable any background computation:
 ```
-scoreboard players set $target tkb.config 0
+trigger tkb.target set 0
 ```
 
 Allowed values are `0..50` and anything outside this range will wrap accordingly - unless [overclocking] is enabled, in which case `0..1000` is permitted.
@@ -93,21 +96,22 @@ Allowed values are `0..50` and anything outside this range will wrap accordingly
 ### Overclocking
 Normally the target tick time is capped at `50` but there is a toggle that will allow you to go beyond. Generally this is not recommended because it will directly result in lag and high CPU usage. **Use at your own risk.**
 
-Enable overclocking:
+Toggle overclocking:
 ```
-scoreboard players set $overclock tkb.config 1
-```
-
-Disable overclocking:
-```
-scoreboard players set $overclock tkb.config 0
+trigger tkb.overclock
 ```
 
 ### Stopping early
 You can force the sub-tick loop to stop early by calling the `tickbuster:stop` function. Useful if there is no computation to be processed in the current tick, as to not waste CPU cycles.
 
-### Debug mode
-Expose players to debugging mechanisms:
+### Administration
+Allow a player to manage the module:
+```
+tag <targets> add tickbuster.admin
+```
+
+### Debugging
+Expose a player to debugging mechanisms:
 ```
 tag <targets> add tickbuster.debug
 ```
@@ -122,21 +126,28 @@ Objective     | Criteria  | Usage     | Description
 ### `tkb.config` objective
 Fakeplayer    | Default | Description
 ------------- | ------- | -----------
-`$overclock`  | `0`     | Whether to allow [overclocking](#overclocking) the target tick time.
-`$target`     | `20`    | The [target tick time](#target-tick-time), in milliseconds.
+`$overclock`  | `0`     | Whether to allow [overclocking](#overclocking).
+`$target`     | `20`    | The [target tick time](#target-tick-time).
 
 ### `tkb.math` objective
 **These values are read-only and should not be altered.**
 
 Fakeplayer  | Description
 ----------- | -----------
-`$targetms` | Mirrors the configured `$target` to detect updates for re-calculation.
 `$targetwb` | The actual value used to compare with the worldborder size.
+
+## Triggers
+### Configuration triggers
+Trigger         | Description
+--------------- | -----------
+`tkb.overclock` | Toggle [overclocking](#overclocking).
+`tkb.target`    | Set the [target tick time](#target-tick-time).
 
 ## Entity Tags
 Entity Tag          | Description
 ------------------- | -----------
-`tickbuster.debug`  | Present on players who are debugging the module.
+`tickbuster.admin`  | Present on players who are [managing the module](#administration).
+`tickbuster.debug`  | Present on players who are [debugging the module](#debugging).
 
 ## Event Hooks
 Function Tag                    | Description
