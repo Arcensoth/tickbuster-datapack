@@ -50,7 +50,7 @@ No, this module **requires exclusive control of the worldborder**.
 
 Unfortunately the worldborder is our only viable means of measuring real-time passage with commands. If any commands outside this module modify the worldborder, something is almost guaranteed to go wrong.
 
-Note that other commands may safely continue to query the worldborder via `worldborder get`; the danger is in setting the worldborder such as with `worldborder add` and `worldbnorder set`.
+Note that other commands may safely continue to query the worldborder via `worldborder get`; the danger is in setting the worldborder such as with `worldborder add` and `worldborder set`.
 
 ### Why are some of my computations being cut-off?
 Most likely because `maxCommandChainLength` is being hit during the subtick loop.
@@ -66,7 +66,7 @@ If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's
 Based on Dr. Brian Lorgon111's [lagless prioritized command scheduler concept](https://www.youtube.com/watch?v=lhJM9LmD2Gg) to "maximize command programming CPU utilization without introducing game lag." The concept has been simplified and adapted for Minecraft 1.13 in the form of a datapack.
 
 ## Configuration
-The objective `tkb.config` is used to hold configuration values via fakeplayers. There are also various entity tags available that will change behaviour. Operators may change scoreboard values and assign tags to players directly.
+The module may be configured via triggers by anyone assigned as a [module admin](#administration), however [player tags](#entity-tags) must be assigned directly by server operators.
 
 ### Target tick time
 The target tick time is a threshold, in milliseconds, that tells the system when to break from the subtick loop. As soon as a tick lasts up to this threshold, the system will yield control back to the game.
@@ -91,7 +91,7 @@ Setting the target `0` will effectively disable any background computation:
 trigger tkb.target set 0
 ```
 
-Allowed values are `0..50` and anything outside this range will wrap accordingly - unless [overclocking] is enabled, in which case `0..1000` is permitted.
+Allowed values are `0..50` and anything outside this range will wrap accordingly - unless [overclocking](#overclocking) is enabled, in which case anything within `0..1000` is permitted.
 
 ### Overclocking
 Normally the target tick time is capped at `50` but there is a toggle that will allow you to go beyond. Generally this is not recommended because it will directly result in lag and high CPU usage. **Use at your own risk.**
@@ -124,6 +124,8 @@ Objective     | Criteria  | Usage     | Description
 `tkb.module`  | `dummy`   | Read-only | Reserved for SMF.
 
 ### `tkb.config` objective
+It is recommended to use the available [configuration triggers](#configuration-triggers) instead of modifying values directly.
+
 Fakeplayer    | Default | Description
 ------------- | ------- | -----------
 `$overclock`  | `0`     | Whether to allow [overclocking](#overclocking).
@@ -152,6 +154,6 @@ Entity Tag          | Description
 ## Event Hooks
 Function Tag                    | Description
 ------------------------------- | -----------
-`#tickbuster:hooks/after_loop`  | Run once per tick, after the target tick length has been met and the subtick loop runs off.
+`#tickbuster:hooks/after_loop`  | Run once per tick, after the target tick time has been met and the subtick loop runs off.
 `#tickbuster:hooks/before_loop` | Run once per tick, before entering the subtick loop.
-`#tickbuster:hooks/loop`        | The main subtick loop, run an arbitrary number of times each tick until the target tick length is met.
+`#tickbuster:hooks/loop`        | The main subtick loop, run an arbitrary number of times each tick until the target tick time is met.
