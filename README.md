@@ -123,7 +123,7 @@ Once the sub-tick loop has begun, it will continue until either:
 
 It may be useful to break out of the sub-tick loop early if there is no further computation to be done in the current tick. However, because several modules may be using the sub-tick loop in any given tick, it is generally unwise to assume you are the only one using it. Instead, you may vote to break out of the sub-tick loop (usually in your `#tickbuster:loop` handle) by calling `tickbuster:api/vote/out`. If all of the modules that opted-in also opt-out, the sub-tick loop will break early.
 
-Note that generally **you should not remove any more votes than you added**; i.e. calling `vote/out` more than `vote/out` in any given tick.
+Note that generally **you should not remove any more votes than you added**; i.e. calling `vote/out` more than `vote/in` in any given tick.
 
 ## Scoreboard
 Objective     | Criteria  | Usage     | Description
@@ -165,4 +165,5 @@ Function Tag                    | Description
 ------------------------------- | -----------
 `#tickbuster:hooks/after_loop`  | Run once per tick, after the target tick time has been met and the subtick loop runs off.
 `#tickbuster:hooks/before_loop` | Run once per tick, before entering the subtick loop.
+`#tickbuster:hooks/break_loop`  | Run *at most* once per tick whenever the sub-tick loop is broken, before `after_loop` is run.
 `#tickbuster:hooks/loop`        | The main subtick loop, run an arbitrary number of times each tick until the target tick time is met.

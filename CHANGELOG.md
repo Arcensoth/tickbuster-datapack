@@ -1,3 +1,5 @@
+# v0.0.7-dev
+
 # v0.0.6
 - Reorganize and clarify internal structure
 - Add config triggers and revise sync mechanism
