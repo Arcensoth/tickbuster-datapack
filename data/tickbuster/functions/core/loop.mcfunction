@@ -1,4 +1,4 @@
-# tickbuster:loop
+# tickbuster:core/loop
 
 # Run loop handles.
 function #tickbuster:hooks/loop
@@ -7,6 +7,6 @@ function #tickbuster:hooks/loop
 execute store result score $worldborder temp run worldborder get
 
 # If we've still got time, keep looping.
-execute if score $worldborder temp < $targetwb tkb.math run function tickbuster:loop
+execute if score $worldborder temp < $targetwb tkb.math run function tickbuster:core/loop
 
 # Otherwise, break out and let the tick run off.

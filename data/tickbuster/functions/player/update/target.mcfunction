@@ -8,7 +8,7 @@ execute if score $target tkb.config matches ..-1 run scoreboard players set $tar
 execute if score $target tkb.config matches 51.. unless score $overclock tkb.config matches 1.. run scoreboard players set $target tkb.config 50
 
 # sync
-function tickbuster:sync
+function tickbuster:config/sync
 
 # DEBUG
 tellraw @a[tag=nengine.debug] [{"text": "[tickbuster:player/update/target] "}, {"selector": "@s"}, {"text": " set target to ", "color": "gray"}, {"score": {"name": "$target", "objective": "tkb.config"}, "color": "aqua"}, {"text": "."}]

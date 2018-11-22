@@ -1,4 +1,4 @@
-# tickbuster:sync
+# tickbuster:config/sync
 
 # adjust target blocks
 scoreboard players set $targetwb tkb.math 59999000

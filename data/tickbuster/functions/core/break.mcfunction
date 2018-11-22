@@ -1,7 +1,7 @@
-# tickbuster:stop
+# tickbuster:core/break
 
-# Run stop handles.
-function #tickbuster:hooks/stop
+# Run break handles.
+function #tickbuster:hooks/break_loop
 
 # Fool the sub-tick loop into thinking time is up by forcefully resizing the worldborder.
 worldborder set 60000000

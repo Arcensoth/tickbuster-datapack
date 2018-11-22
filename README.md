@@ -17,10 +17,10 @@ Scorespace  | `tkb`
   - [Where did the idea come from?](#where-did-the-idea-come-from)
 - [Configuration](#configuration)
   - [Target tick time](#target-tick-time)
-  - [Stopping early](#stopping-early)
   - [Overclocking](#overclocking)
   - [Administration](#administration)
   - [Debugging](#debugging)
+- [API](#api)
 - [Scoreboard](#scoreboard)
   - [`tkb.config` objective](#tkbconfig-objective)
   - [`tkb.math` objective](#tkbmath-objective)
@@ -101,9 +101,6 @@ Toggle overclocking:
 trigger tkb.overclock
 ```
 
-### Stopping early
-You can force the sub-tick loop to stop early by calling the `tickbuster:stop` function. Useful if there is no computation to be processed in the current tick, as to not waste CPU cycles.
-
 ### Administration
 Allow a player to manage the module:
 ```
@@ -115,6 +112,18 @@ Expose a player to debugging mechanisms:
 ```
 tag <targets> add tickbuster.debug
 ```
+
+## API
+In any given tick, the sub-tick loop will not run unless there is at least one vote to do so. This can be achieved by calling `tickbuster:api/vote/in` once for each module (or any other unit of computation) that wishes to utilize the sub-tick loop in the current tick.
+
+Once the sub-tick loop has begun, it will continue until either:
+
+1. the target tick time has been reached, causing the sub-tick loop to run off the end; or
+2. all votes have been removed, causing the sub-tick loop to break early.
+
+It may be useful to break out of the sub-tick loop early if there is no further computation to be done in the current tick. However, because several modules may be using the sub-tick loop in any given tick, it is generally unwise to assume you are the only one using it. Instead, you may vote to break out of the sub-tick loop (usually in your `#tickbuster:loop` handle) by calling `tickbuster:api/vote/out`. If all of the modules that opted-in also opt-out, the sub-tick loop will break early.
+
+Note that generally **you should not remove any more votes than you added**; i.e. calling `vote/out` more than `vote/out` in any given tick.
 
 ## Scoreboard
 Objective     | Criteria  | Usage     | Description

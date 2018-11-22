@@ -1,6 +1,9 @@
 # v0.0.6-dev
-- Implement function to stop the sub-tick loop early
+- Reorganize and clarify internal structure
 - Add config triggers and revise sync mechanism
+- Implement API to enter and break the sub-tick loop
+    - The sub-tick loop will run if at least one vote is present
+    - The sub-tick loop will break when all votes are removed
 
 # v0.0.5
 - Define missing hooks

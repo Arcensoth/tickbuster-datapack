@@ -12,4 +12,4 @@ scoreboard players set $overclock tkb.config 0
 scoreboard players set $target tkb.config 20
 
 # sync config
-function tickbuster:sync
+function tickbuster:config/sync

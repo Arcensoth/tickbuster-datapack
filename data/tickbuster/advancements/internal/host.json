@@ -1,7 +1,7 @@
 {
     "parent": "tickbuster:internal",
     "rewards": {
-        "function": "tickbuster:main"
+        "function": "tickbuster:core/host"
     },
     "criteria": {
         "host": {
