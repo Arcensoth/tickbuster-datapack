@@ -1,4 +1,4 @@
-# v0.0.6-dev
+# v0.0.6
 - Reorganize and clarify internal structure
 - Add config triggers and revise sync mechanism
 - Implement API to enter and break the sub-tick loop

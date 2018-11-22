@@ -1,7 +1,7 @@
 {
   "title": "Tickbuster",
   "description": "Lag-free background computation with subtick timing.",
-  "version": "0.0.6-dev",
+  "version": "0.0.6",
   "namespace": "tickbuster",
   "scorespace": "tkb",
   "authors": {
