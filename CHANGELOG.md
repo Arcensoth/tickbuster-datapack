@@ -1,4 +1,5 @@
 # v0.0.7-dev
+- Add third dummy criteria to help counter log spam
 
 # v0.0.6
 - Reorganize and clarify internal structure
