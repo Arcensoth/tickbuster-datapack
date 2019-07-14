@@ -1,4 +1,4 @@
-# tickbuster:module/api/setup
+#> tickbuster:.module/setup
 
 scoreboard objectives add tkb.config dummy
 scoreboard objectives add tkb.math dummy

@@ -1,5 +1,3 @@
 {
-    "values": [
-        "tickbuster:module/reload"
-    ]
+  "values": ["tickbuster:load"]
 }

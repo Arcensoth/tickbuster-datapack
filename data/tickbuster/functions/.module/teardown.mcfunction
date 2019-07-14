@@ -1,4 +1,4 @@
-# tickbuster:module/api/teardown
+#> tickbuster:.module/teardown
 
 scoreboard objectives remove tkb.config
 scoreboard objectives remove tkb.math

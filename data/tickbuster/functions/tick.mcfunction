@@ -1,4 +1,4 @@
-# tickbuster:module/api/tick
+# tickbuster:tick
 
 # Move the worldborder by 1000 blocks over the course of 1 second, which equates to 1 block per millisecond. We can then detect how many milliseconds of real time have passed during the rest of the tick.
 worldborder set 59999000
