@@ -1,12 +1,6 @@
 # Tickbuster
 Lag-free background computation with subtick timing.
 
-Field       | Value
------------ | -----
-Category    | Utility
-Namespace   | `tickbuster`
-Scorespace  | `tkb`
-
 - [Q&A](#q-a)
   - [What does it do?](#what-does-it-do)
   - [How do I use it?](#how-do-i-use-it)
