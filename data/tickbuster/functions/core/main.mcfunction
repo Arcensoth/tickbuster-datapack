@@ -4,10 +4,10 @@
 function #tickbuster:hooks/before_loop
 
 # Get an initial measurement.
-execute store result score $worldborder temp run worldborder get
+execute store result score $tickbuster.worldborder __temp__ run worldborder get
 
 # Start the subtick loop... if we have any time to begin with.
-execute if score $worldborder temp < $targetwb tkb.math run function tickbuster:core/loop
+execute if score $tickbuster.worldborder __temp__ < $targetwb tkb.math run function tickbuster:core/loop
 
 # Reset votes for next tick.
 scoreboard players set $vote tkb.math 0

@@ -1,5 +1,7 @@
 #> tickbuster:.module/setup
 
+scoreboard objectives add __temp__ dummy
+
 scoreboard objectives add tkb.config dummy
 scoreboard objectives add tkb.math dummy
 
