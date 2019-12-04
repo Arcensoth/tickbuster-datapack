@@ -7,7 +7,7 @@ Category    | Utility
 Namespace   | `tickbuster`
 Scorespace  | `tkb`
 
-- [Q&A](#q-a)
+- [Q & A](#q--a)
   - [What does it do?](#what-does-it-do)
   - [How do I use it?](#how-do-i-use-it)
   - [How does it work?](#how-does-it-work)
@@ -29,7 +29,7 @@ Scorespace  | `tkb`
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
-## Q&A
+## Q & A
 ### What does it do?
 It lets you run tagged functions as many times per tick as possible without causing lag.
 
