@@ -4,7 +4,7 @@ Lag-free background computation with subtick timing.
 [![imp-module-badge]](https://github.com/Arcensoth/imp-datapack)
 [![github-release-badge]](https://github.com/Arcensoth/tickbuster-datapack/releases)
 
-- [Q&A](#q-a)
+- [Q & A](#q--a)
   - [What does it do?](#what-does-it-do)
   - [How do I use it?](#how-do-i-use-it)
   - [How does it work?](#how-does-it-work)
@@ -26,7 +26,7 @@ Lag-free background computation with subtick timing.
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
 
-## Q&A
+## Q & A
 ### What does it do?
 It lets you run tagged functions as many times per tick as possible without causing lag.
 
