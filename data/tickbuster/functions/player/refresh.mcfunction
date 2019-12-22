@@ -7,7 +7,7 @@ execute unless score @s tkb.target matches -2147483648.. run scoreboard players 
 # Check for and re-enable triggers.
 
 execute unless score @s tkb.overclock matches 0 run function tickbuster:player/update/overclock
-scoreboard players enable @a tkb.overclock
+scoreboard players enable @s tkb.overclock
 
 execute unless score @s tkb.target matches -2147483648 run function tickbuster:player/update/target
-scoreboard players enable @a tkb.target
+scoreboard players enable @s tkb.target
