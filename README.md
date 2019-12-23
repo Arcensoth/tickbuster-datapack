@@ -4,6 +4,8 @@ Lag-free background computation with subtick timing.
 [![imp-module-badge]](https://github.com/Arcensoth/imp-datapack)
 [![github-release-badge]](https://github.com/Arcensoth/tickbuster-datapack/releases)
 
+[![Showcase](https://i.imgur.com/Fwuup46.png)](https://i.imgur.com/Fwuup46.png)
+
 - [Q & A](#q--a)
   - [What does it do?](#what-does-it-do)
   - [How do I use it?](#how-do-i-use-it)
