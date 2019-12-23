@@ -6,6 +6,7 @@ Lag-free background computation with subtick timing.
 
 [![Showcase](https://i.imgur.com/Fwuup46.png)](https://i.imgur.com/Fwuup46.png)
 
+- [Installation](#installation)
 - [Q & A](#q--a)
   - [What does it do?](#what-does-it-do)
   - [How do I use it?](#how-do-i-use-it)
@@ -27,6 +28,9 @@ Lag-free background computation with subtick timing.
   - [Configuration triggers](#configuration-triggers)
 - [Entity Tags](#entity-tags)
 - [Event Hooks](#event-hooks)
+
+## Installation
+Run `function tickbuster:.module/setup` to add required scoreboard objectives. Tickbuster does not depend on any other datapacks.
 
 ## Q & A
 ### What does it do?
