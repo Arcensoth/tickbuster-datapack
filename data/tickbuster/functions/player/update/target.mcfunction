@@ -1,16 +1,14 @@
-# tickbuster:player/update/target
+#> tickbuster:player/update/target
+#
+# @context player
 
 # set target
 scoreboard players operation $target tkb.config = @s tkb.target
-
-# cap values, unless overclocking is enabled
 execute if score $target tkb.config matches ..-1 run scoreboard players set $target tkb.config 0
-execute if score $target tkb.config matches 51.. unless score $overclock tkb.config matches 1.. run scoreboard players set $target tkb.config 50
+
+tellraw @a[tag=tickbuster.admin] [{"text": "", "color": "gray"}, {"text": "[Tickbuster]", "color": "aqua"}, " ", {"selector": "@s"}, {"text": " set the target tick time to "}, {"score": {"name": "$target", "objective": "tkb.config"}, "color": "aqua"}, {"text": " mspt."}]
 
 # sync
-function tickbuster:config/sync
-
-# DEBUG
-tellraw @a[tag=nengine.debug] [{"text": "[tickbuster:player/update/target] "}, {"selector": "@s"}, {"text": " set target to ", "color": "gray"}, {"score": {"name": "$target", "objective": "tkb.config"}, "color": "aqua"}, {"text": "."}]
+function tickbuster:util/sync_config
 
 scoreboard players set @s tkb.target -2147483648

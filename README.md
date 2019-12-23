@@ -33,7 +33,10 @@ It lets you run tagged functions as many times per tick as possible without caus
 The idea is that all tagged functions will run as many times per tick as possible, via round-robin, without causing lag.
 
 ### How do I use it?
-Add your functions to the `#tickbuster:hooks/loop` tag to include them as background computation.
+There are two important things you need to do in order to integrate with the sub-tick loop:
+
+1. **Add a single function to the `#tickbuster:vote` tag that conditionally calls `tickbuster:api/vote/in`.** You should only vote when there's work to do in the current tick. This is used by Tickbuster to collect votes and determine whether the sub-tick loop should run at all during the current tick.
+2. **Add any other functions to the `#tickbuster:loop` tag to include them as background computation.** Keep in mind that these functions may run even if you have not voted-in. The recommended best-practice is to keep track of whether you have voted-in, and use this as an escape condition in your entry point to the sub-tick loop.
 
 It is recommended you split your background computation into small, dividable slices, and only run what is necessary each iteration. Large/complex background functions have the potential to hog the pipeline and may still cause lag on their own.
 
@@ -57,7 +60,7 @@ Depending on how inexpensive your background computation is, you may need to inc
 ### Why is the after-loop hook not running?
 See: [Why are some of my computations being cut-off?](#why-are-some-of-my-computations-being-cut-off)
 
-If you run into an issue where `#tickbuster:hooks/after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` during the subtick loop and being cut-off before actually reaching the target tick time. In this case, the after-loop hook will never even get a chance to run.
+If you run into an issue where `#tickbuster:after_loop` does not run, it's probably because the subtick loop is hitting `maxCommandChainLength` during the subtick loop and being cut-off before actually reaching the target tick time. In this case, the after-loop hook will never even get a chance to run.
 
 ### Where did the idea come from?
 Based on Dr. Brian Lorgon111's [lagless prioritized command scheduler concept](https://www.youtube.com/watch?v=lhJM9LmD2Gg) to "maximize command programming CPU utilization without introducing game lag." The concept has been simplified and adapted for Minecraft 1.13 in the form of a datapack.
@@ -111,7 +114,7 @@ tag <targets> add tickbuster.debug
 ```
 
 ## API
-In any given tick, the sub-tick loop will not run unless there is at least one vote to do so. This can be achieved by calling `tickbuster:api/vote/in` once for each module (or any other unit of computation) that wishes to utilize the sub-tick loop in the current tick.
+In any given tick, the sub-tick loop will not run unless there is at least one vote to do so. This can be achieved by calling `tickbuster:api/vote/in` - from a function tagged with `#tickbuster:vote` - once for each module (or any other unit of computation) that wishes to utilize the sub-tick loop in the current tick.
 
 Once the sub-tick loop has begun, it will continue until either:
 
@@ -127,7 +130,6 @@ Objective     | Criteria  | Usage     | Description
 ------------- | --------- | --------- | -----------
 `tkb.config`  | `dummy`   | Input     | Reserved for configuration options.
 `tkb.math`    | `dummy`   | Read-only | Reserved for sensitive operations.
-`tkb.module`  | `dummy`   | Read-only | Reserved for SMF.
 
 ### `tkb.config` objective
 It is recommended to use the available [configuration triggers](#configuration-triggers) instead of modifying values directly.
@@ -158,12 +160,13 @@ Entity Tag          | Description
 `tickbuster.debug`  | Present on players who are [debugging the module](#debugging).
 
 ## Event Hooks
-Function Tag                    | Description
-------------------------------- | -----------
-`#tickbuster:hooks/after_loop`  | Run once per tick, after the target tick time has been met and the subtick loop runs off.
-`#tickbuster:hooks/before_loop` | Run once per tick, before entering the subtick loop.
-`#tickbuster:hooks/break_loop`  | Run *at most* once per tick whenever the sub-tick loop is broken, before `after_loop` is run.
-`#tickbuster:hooks/loop`        | The main subtick loop, run an arbitrary number of times each tick until the target tick time is met.
+Function Tag                | Description
+--------------------------- | -----------
+`#tickbuster:after_loop`    | Run once per tick, after the target tick time has been met and the subtick loop runs off.
+`#tickbuster:before_loop`   | Run once per tick, before entering the subtick loop.
+`#tickbuster:break_loop`    | Run *at most* once per tick whenever the sub-tick loop is broken, before `after_loop` is run.
+`#tickbuster:loop`          | The main subtick loop, run an arbitrary number of times each tick until the target tick time is met.
+`#tickbuster:vote`          | The callback voting procedure, used to collect votes before determining whether to run the sub-tick loop.
 
 [imp-module-badge]: https://img.shields.io/static/v1.svg?label=imp&message=module&color=%23AA8ED6&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuNv1OCegAAAH2SURBVFhH1Zk9TgJRFIWHSEhYAbU2WNHTkbAMjYX27MHYETdACwkFBnZBo6V70BVoTIyD35l3gQwgMGbGuX7JCXPvfT8nb37ziBaLxUkcxz30oF/F0RHQrkr7FrpBfTREM5OOlVOtpbbWbS87vdjBCuIRqlufFJQr1NpogF5Dj8OorfVpE1ZsuBTU6mgUegSIeypMLV5B7hE1rW8CcRfNUWzNMqO+oDG6NmwCpXNyT6HVGnJTTTy2OAX5N3SLmoQTfn9tbBMbS2M20R16D5U05McyeG/xTqjnZmyTQ2PLmwxeWewOedP5P+PgK6T8IE/odHlnbl2gZWOewh1PcB3SfpCnxJwgrpF4DqXyMS81sxfwtIqp1RPkdB3OQ7l8zMv6jUNCr6/CnndZkRdom73E4MBqbpCnxBzH+ip5CWk/mKeqVk+fQy6RN5fPwCXyJoN9i90hbzI4tNgd8iaDM4vdIW//wqD7U+z+JnH/mPH9oObX96tOEPj9WBAEvj+3yPn+YBUktbVR+irKA6S2RlZQn4RmpTIxO9vgvIFKu6M1tzyYnd3QrkOjj9Dl77A5O2ZjPzS+QJ+ha/FoLnRp0x+HmSx8JTVHZnNL6K/TXdg1aWMfd1p/gkEaDFLUBub+GyILDFbYFnBuMEdhm+i5w0S5/w2xTRR9AyY9bVacGuF5AAAAAElFTkSuQmCC
 [github-release-badge]: https://img.shields.io/github/release/Arcensoth/tickbuster-datapack.svg?logo=github

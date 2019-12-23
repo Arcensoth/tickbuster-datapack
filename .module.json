@@ -3,7 +3,7 @@
   "color": "aqua",
   "description": "Lag-free background computation with subtick timing.",
   "version": "0.1.0-imp",
-  "minecraft_version": "1.14",
+  "minecraft_version": "1.15",
   "category": "Library",
   "namespace": "tickbuster",
   "scorespace": "tkb",

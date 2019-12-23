@@ -7,8 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Start using a new changelog format
 - Scrapped SMF support in favor of IMP
+- Reworked API with improved voting system
+- Improved host player selection and edge case handling
+- Optimized main tick based on votes and host player
+- Lack of host player will now trigger warnings
+- Config sync no longer requires reload
 ### Fixed
 - Fixed log spam, hopefully once and for all (see #1)
+- Fixed existing configs being overwritten on setup
+- Fixed incorrect player selectors during config sync
 
 ## [0.0.7] - 2019-07-11
 ### Added

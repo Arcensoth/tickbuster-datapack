@@ -14,4 +14,4 @@ execute unless score $overclock tkb.config matches -2147483648.. run scoreboard 
 execute unless score $target tkb.config matches -2147483648.. run scoreboard players set $target tkb.config 20
 
 # sync config
-function tickbuster:config/sync
+function tickbuster:util/sync_config

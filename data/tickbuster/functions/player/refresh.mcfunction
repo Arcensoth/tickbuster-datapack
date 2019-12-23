@@ -1,4 +1,6 @@
-# tickbuster:player/refresh
+#> tickbuster:player/refresh
+#
+# @context player
 
 # Initialize null triggers.
 execute unless score @s tkb.overclock matches -2147483648.. run scoreboard players set @s tkb.overclock 0
