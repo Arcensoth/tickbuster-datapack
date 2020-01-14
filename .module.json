@@ -2,12 +2,13 @@
   "title": "Tickbuster",
   "color": "aqua",
   "description": "Lag-free background computation with subtick timing.",
-  "version": "0.1.0",
+  "version": "0.1.1-dev",
   "minecraft_version": "1.15",
   "category": "Library",
   "namespace": "tickbuster",
   "scorespace": "tkb",
   "url": "https://github.com/Arcensoth/tickbuster-datapack",
   "authors": [{ "name": "Arcensoth", "url": "https://github.com/Arcensoth" }],
-  "dependencies": []
+  "dependencies": [],
+  "module_format": 1
 }
