@@ -2,7 +2,7 @@
   "title": "Tickbuster",
   "color": "aqua",
   "description": "Lag-free background computation with subtick timing.",
-  "version": "0.1.1-dev",
+  "version": "0.1.1-dev1",
   "minecraft_version": "1.15",
   "category": "Library",
   "namespace": "tickbuster",
